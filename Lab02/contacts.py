@@ -9,9 +9,11 @@ import time
 def print_list(contactList):
     """Prints the contact list provided"""
     if len(contactList) > 0:
-        print(f'== Contact List ==\n\n{"Index":5} {"First Name":22} {"Last Name":22}\n')
+        print(
+            f'================== Contact List ==================\n\n{"Index":7} {"First Name":21} {"Last Name":22}\n======  ====================  ===================='
+        )
         for x in range(len(contactList)):
-            print(f"{str(x):5} {contactList[x][0]:22} {contactList[x][1]:22}")
+            print(f"{str(x):7} {contactList[x][0]:21} {contactList[x][1]:22}")
     else:
         print("Contact List is empty.")
 
@@ -53,10 +55,8 @@ def delete_contact(contactList, index):
 def sort_contacts(contactList, column):
     match column:
         case 0:
-            print("Sorting by First Name")
-            sortedList = sorted(contactList, key=lambda x: x[0])
+            contactList.sort(key=lambda x: x[0])
         case 1:
-            print("Sorting by Last Name")
-            sortedList = sorted(contactList, key=lambda x: x[-1])
-    contactList = sortedList
-    return sortedList
+            contactList.sort(key=lambda x: x[-1])
+    print(contactList)
+    return contactList

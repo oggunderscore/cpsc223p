@@ -17,7 +17,7 @@ userExit = False  # At startup, set to False. This will be set to True when user
 while userExit != True:  # Loops while user has not selected exit option
     os.system("clear")
     print(
-        "== Main Menu ==\n1 - Print List\n2 - Add Contact\n3 - Modify Contact\n4 - Delete Contact\n5 - Exit"
+        "== Main Menu ==\n1 - Print List\n2 - Add Contact\n3 - Modify Contact\n4 - Delete Contact\n5 - Sort by First Name\n6 - Sort by Last Name\n7 - Exit"
     )
 
     try:  # Assert that the user will not enter a breaking char
@@ -39,6 +39,7 @@ while userExit != True:  # Loops while user has not selected exit option
         time.sleep(0.5)
     elif choice == 3:
         os.system("clear")
+        print(f"== Edit Contact ==\n")
         print_list(contactList)
         try:
             index = int(input("\nContact index to edit > "))
@@ -59,21 +60,27 @@ while userExit != True:  # Loops while user has not selected exit option
     elif choice == 4:
         os.system("clear")
         print_list(contactList)
-
+        print(f"== Delete Contact ==\n")
         try:
             index = int(input("Contact index to delete > "))
             delete_contact(contactList, index)
         except Exception as e:
             print("\nFailed to delete contact - invalid input\n")
             time.sleep(1)
-
     elif choice == 5:
+        sort_contacts(contactList, 0)
+        print("\nSuccessfully sorted list by First Name.")
+        time.sleep(1)
+    elif choice == 6:
+        sort_contacts(contactList, 1)
+        print("\nSuccessfully sorted list by Last Name.")
+        time.sleep(1)
+    elif choice == 7:
         print("\nExiting...\n")
         time.sleep(0.5)
         userExit = True
     else:
         print("\nInput invalid - please try again.")
         time.sleep(1)
-
 
 os.system("clear")
