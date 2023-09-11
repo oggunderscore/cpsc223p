@@ -1,1 +1,2 @@
-# cpsc223p
+### CPSC 223P Project Files
+---
