@@ -1,6 +1,6 @@
 """
 Name - Kevin Nguyen
-Date - 08/30/23
+Date - 09/19/23
 This class contains core functions for the contacts list program.
 """
 import time
@@ -10,12 +10,12 @@ def print_list(contactList):
     """Prints the contact list provided"""
     if len(contactList) > 0:
         print(
-            f'================== Contact List ==================\n\n{"Index":7} {"First Name":21} {"Last Name":22}\n======  ====================  ===================='
+            f'================== Contact List ==================\n\n{"Id":7} {"First Name":21} {"Last Name":22}\n======  ====================  ===================='
         )
         for id, name in contactList.items():
             print(f"{str(id):7} {name[0]:21} {name[1]:22}")
     else:
-        print("Contact List is empty.")
+        print("Print query returned empty.")
 
 
 def add_contact(contactList, id=None, firstName=None, lastName=None):  # Default Args
@@ -52,15 +52,12 @@ def delete_contact(contactList, id=None):
     return True
 
 
-def sort_contacts(contactList, column=0):
+def sort_contacts(contactList):
     """Sorts Contacts List by Last name or First Name"""
-    # print(contactList.items())
-    # TODO: This is not sorting correctly
-    match column:
-        case 0:
-            sorted(contactList.items(), key=lambda x: x[1][0])
-        case 1:
-            sorted(contactList.items(), key=lambda x: x[1][-1])
+    sortedContacts = sorted(contactList.items(), key=lambda x: (x[1][-1], x[1][0]))
+
+    sortedContactDict = {id: names for id, names in sortedContacts}
+    contactList = sortedContactDict
     return contactList
 
 
@@ -68,19 +65,14 @@ def find_contact(contactDict, find=None):
     """Searches the contactDict by their number, first, or last name based on key provided"""
     searchResults = {}
 
-    # Check if find is an integer
-    if isinstance(find, int):
-        for contact_id, contact_info in contactDict.items():
-            if contact_id == find:
-                searchResults[contact_id] = contact_info
-    elif isinstance(find, str):
+    if isinstance(find, str):
         find = (
             find.lower()
         )  # Convert the search string to lowercase for case-insensitive matching
         for contact_id, contact_info in contactDict.items():
             first_name = contact_info[0].lower()
             last_name = contact_info[1].lower()
-            if find in first_name or find in last_name:
+            if find in contact_id or find in first_name or find in last_name:
                 searchResults[contact_id] = contact_info
-
+    searchResults = sort_contacts(searchResults)
     return searchResults
