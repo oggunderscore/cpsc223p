@@ -1,3 +1,1 @@
-from whoami import getName
-from numbers import *
-from geometry import *
+__all__ = ['whoami']
