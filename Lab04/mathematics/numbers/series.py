@@ -1,15 +1,13 @@
-def sum_values(**kwargs):
-    values = list(kwargs.values())
-    
-    if not values:
-        return 0  
-    
-    return sum(values)
+def sum_values(*args):
+    total = 0
+    for value in args:
+        total += value
+    return total
 
-def average_values(**kwargs):
-    values = list(kwargs.values())
-    
-    if not values:
-        return 0  
-    
-    return sum(values) / len(values)
+def average_values(*args):
+    if len(args) == 0:
+        return 0 
+
+    total = sum(args)
+    average = total / len(args)
+    return average
