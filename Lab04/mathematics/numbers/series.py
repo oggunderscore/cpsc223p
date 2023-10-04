@@ -1,13 +1,13 @@
-def sum_values(*args):
+def sum_values(nums = None):
     total = 0
-    for value in args:
+    for value in nums:
         total += value
     return total
 
-def average_values(*args):
-    if len(args) == 0:
+def average_values(nums = None):
+    if len(nums) == 0:
         return 0 
 
-    total = sum(args)
-    average = total / len(args)
+    total = sum(nums)
+    average = total / len(nums)
     return average
