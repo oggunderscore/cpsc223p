@@ -19,7 +19,6 @@ while True:
     if choice == "1":
         filename = input("Enter the filename: ")
         weather_data = read_data(filename)
-        print(weather_data)
         print("Data loaded successfully!")
 
     elif choice == "2":
@@ -33,7 +32,7 @@ while True:
         weather_data[key] = {
             "temperature": temperature,
             "humidity": humidity,
-            "rainfall": rainfall
+            "rainfall": rainfall,
         }
 
         write_data(weather_data, default_filename)
