@@ -18,15 +18,15 @@ while True:
     elif choice == "2":
         date = input("Enter date (YYYYMMDD): ")
         time = input("Enter time (hhmmss): ")
-        temperature = float(input("Enter the temperature (°C): "))
+        temperature = float(input("Enter the temperature (°F): "))
         humidity = float(input("Enter the humidity (%): "))
         rainfall = float(input("Enter the rainfall (mm): "))
 
         key = f"{date}{time}"
         weather_data[key] = {
-            "temperature": temperature,
-            "humidity": humidity,
-            "rainfall": rainfall,
+            "t": temperature,
+            "h": humidity,
+            "r": rainfall,
         }
 
         write_data(weather_data, default_filename)
