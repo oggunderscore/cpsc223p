@@ -57,49 +57,71 @@ def tot_rain(data=None, date=None):
 
 
 def report_daily(data=None, date=None):
-    print(data)
-    # if date not in data:
-    #     return "No data available for the specified date."
-
     report = f"========================= DAILY REPORT ========================\n"
-    report += f"Date Time Temperature Humidity Rainfall\n"
+    report += f"{('Date'):24} Time Temperature Humidity Rainfall\n"
     report += f"==================== ======== =========== ======== ========\n"
-
+    has_data = False
     for key, value in data.items():
-        print(f"key: {key} | value: {value}")
         if date in key[:8]:
+            has_data = True
             year = key[:4]
             month = int(key[4:6])
-            day = int(key[6:8])
-            time = key[8:9] + ":" + key[9:10] + ":" + key[10:11]
+            day = str(key[6:8])
+            time = key[8:10] + ":" + key[10:12] + ":" + key[12:14]
             month_name = calendar.month_name[month]
+            date_string = month_name + " " + day + ", " + year
 
             temperature = value.get("t", "N/A")
             humidity = value.get("h", "N/A")
             rainfall = value.get("r", "N/A")
 
-            report += f"{month_name} {day}, {year} {time} {temperature} {humidity} {rainfall}\n"
-
+            report += f"{date_string:20} {time:8} {temperature:11} {humidity:8} {rainfall:8}\n"
+    if has_data == False:
+        return "\nNo data available for the specified date."
     return report
 
 
 def report_historical(data=None):
-    report = "Historical Weather Data:\n\n"
-    for date in sorted(data.keys()):
-        month = int(date[4:6])
-        day = int(date[6:])
-        month_name = calendar.month_name[month]
-        max_temp = max_temperature(data, date)
-        min_temp = min_temperature(data, date)
-        max_hum = max_humidity(data, date)
-        min_hum = min_humidity(data, date)
-        rain = tot_rain(data, date)
+    if len(data) == 0:
+        return "\nNo data available."
 
-        report += f"{month_name} {day}, {date[:4]}:\n"
-        report += f"Maximum Temperature: {max_temp}°C\n"
-        report += f"Minimum Temperature: {min_temp}°C\n"
-        report += f"Maximum Humidity: {max_hum}%\n"
-        report += f"Minimum Humidity: {min_hum}%\n"
-        report += f"Total Rainfall: {rain} mm\n\n"
+    report = f"\n========================= HISTORICAL REPORT ========================\n"
+    report += f"{(' '):15} Minimum    Maximum    Minimum    Maximum    Total\n"
+    report += f"{('Date'):24} Temperature  Temperature  Humidity  Humidity  Rainfall\n"
+    report += (
+        f"==================== =========== =========== ======== ======== ========\n"
+    )
+
+    # Initialize variables for temperature and humidity range
+    min_temp = float("inf")
+    max_temp = float("-inf")
+    min_hum = 100
+    max_hum = 0
+    total_rain = 0.0
+
+    for key, value in data.items():
+        year = key[:4]
+        month = int(key[4:6])
+        day = str(key[6:8])
+        month_name = calendar.month_name[month]
+        date_string = month_name + " " + day + ", " + year
+
+        temperature = value.get("t", "N/A")
+        humidity = value.get("h", "N/A")
+        rainfall = value.get("r", "N/A")
+
+        # Update temperature and humidity range
+        if temperature != "N/A":
+            min_temp = min(min_temp, temperature)
+            max_temp = max(max_temp, temperature)
+        if humidity != "N/A":
+            min_hum = min(min_hum, humidity)
+            max_hum = max(max_hum, humidity)
+
+        # Update total rainfall
+        if rainfall != "N/A":
+            total_rain += rainfall
+
+        report += f"{date_string:19}  {min_temp:11} {max_temp:11} {min_hum:8} {max_hum:8} {round(total_rain, 1):8}\n"
 
     return report
