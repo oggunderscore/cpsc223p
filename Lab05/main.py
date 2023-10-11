@@ -1,29 +1,23 @@
 from weather import *
 
-# Default filename for JSON data
 default_filename = "w.dat"
 
-# Dictionary to hold weather data
 weather_data = {}
 
 while True:
-    print("\nMenu:")
-    print("1. Set data filename")
-    print("2. Add weather data")
-    print("3. Print daily report")
-    print("4. Print historical report")
-    print("5. Exit")
+    menu = "\n== Weather App ==\n\n1. Set data filename\n2. Add weather data\n3. Print daily report\n4. Print historical report\n5. Exit"
+    print(menu)
 
     choice = input("Enter your choice: ")
 
     if choice == "1":
         filename = input("Enter the filename: ")
         weather_data = read_data(filename)
-        print("Data loaded successfully!")
+        print("Data loaded successfully!\n")
 
     elif choice == "2":
-        date = input("Enter the date (YYYYMMDD): ")
-        time = input("Enter the time (hhmmss): ")
+        date = input("Enter date (YYYYMMDD): ")
+        time = input("Enter time (hhmmss): ")
         temperature = float(input("Enter the temperature (°C): "))
         humidity = float(input("Enter the humidity (%): "))
         rainfall = float(input("Enter the rainfall (mm): "))
