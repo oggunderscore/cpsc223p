@@ -4,7 +4,7 @@ faculty_list = []
 student_list = []
 
 while True:
-    print("\n\t========= TUFFY TITAN STUDENT / FACULTY MAIN MENU =========\n:")
+    print("\n\t========= TUFFY TITAN STUDENT / FACULTY MAIN MENU =========\n")
     print("1. Add faculty")
     print("2. Print faculty")
     print("3. Add student")
@@ -28,7 +28,7 @@ while True:
         print("======  ====================  =========================")
         for index, faculty in enumerate(faculty_list, start=1):
             print(
-                f"{index}. {faculty.firstname} {faculty.lastname}, Department: {faculty.department}"
+                f"{index:6}  {(faculty.firstname + ' ' + faculty.lastname):20}  {faculty.department:25}"
             )
 
     elif choice == "3":
@@ -40,7 +40,7 @@ while True:
         print("Choose a faculty advisor from the list:")
         for index, faculty in enumerate(faculty_list, start=1):
             print(
-                f"{index}. {faculty.firstname} {faculty.lastname}, Department: {faculty.department}"
+                f"{index:6}  {(faculty.firstname + ' ' + faculty.lastname):20}  {faculty.department:25}"
             )
 
         advisor_index = (
@@ -58,10 +58,16 @@ while True:
             print("Invalid faculty advisor selection. Student not added.")
 
     elif choice == "4":
-        print("\nStudent List:")
-        for index, student in enumerate(student_list, start=1):
+        print(
+            "\n===================================== STUDENTS ======================================"
+        )
+        print(f"{'Name':20}  {'Class':9}  {'Major':25}  {'Advisor':20}")
+        print(
+            "====================  =========  =========================  ========================="
+        )
+        for student in student_list:
             print(
-                f"{index}. {student.firstname} {student.lastname}, Class Year: {student.classyear}, Major: {student.major}, Advisor: {student.advisor.firstname} {student.advisor.lastname}"
+                f"{(student.firstname + ' ' + student.lastname):20}  {student.classyear:9}  {student.major:25}  {(student.advisor.firstname + ' ' + student.advisor.lastname):20}"
             )
 
     elif choice == "5":
@@ -69,4 +75,4 @@ while True:
         break
 
     else:
-        print("Invalid choice. Please choose a valid option (a, b, c, d, or e).")
+        print("Invalid choice. Please choose a valid option (1-5).")
