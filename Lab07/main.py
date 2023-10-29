@@ -1,5 +1,6 @@
 from people import Faculty, Student
 
+# Instantianate Lists
 faculty_list = []
 student_list = []
 
@@ -49,6 +50,7 @@ while True:
             int(input("Enter the record number of the faculty advisor: ")) - 1
         )
 
+        # Validating selection is within current index of faculty List
         if 0 <= advisor_index < len(faculty_list):
             student = Student(first_name, last_name)
             student.set_class(class_year)
