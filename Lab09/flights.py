@@ -23,6 +23,7 @@ class Flights:
         if not self.is_valid_time(departure) or not self.is_valid_time(arrival):
             return False
 
+        # Declare the var
         flight_data = {
             "origin": origin,
             "destination": destination,
@@ -32,13 +33,20 @@ class Flights:
             "arrival": arrival,
         }
 
+        # Add data to class
         self.data.append(flight_data)
+
+        # Save
         self.save_to_file()
+
         return True
 
+    # For main class to get data within class
     def get_flights(self):
-        formatted_flights = []
+        formatted_flights = []  # Initialize Var
+
         for flight in self.data:
+            # Format the time and duration, omit next_day
             formatted_flight = {
                 "origin": flight["origin"],
                 "destination": flight["destination"],
@@ -49,10 +57,11 @@ class Flights:
                     flight["departure"], flight["arrival"], flight["next_day"]
                 ),
             }
-
+            # Add symbol for next day flights
             if flight["next_day"] == "Y":
                 formatted_flight["arrival"] = "+" + formatted_flight["arrival"]
 
+            # Add the data
             formatted_flights.append(formatted_flight)
         return formatted_flights
 
@@ -60,6 +69,7 @@ class Flights:
         with open(self.filename, "w") as file:
             json.dump(self.data, file, indent=2)
 
+    # Generic function to sanity check inputted times
     @staticmethod
     def is_valid_time(time_str):
         try:
@@ -69,6 +79,7 @@ class Flights:
         except ValueError:
             return False
 
+    # Generic function to sanity check inputted times
     @staticmethod
     def format_time(time_str):
         hours = int(time_str[:2])
@@ -78,6 +89,7 @@ class Flights:
 
         return f'{(hours)}:{minutes:02}{("am" if hours < 12 else "pm")}'
 
+    # Handle the calculation of next or same day flight durations
     @staticmethod
     def calculate_duration(departure, arrival, next_day):
         # Assume departure and arrival are in HHMM format
