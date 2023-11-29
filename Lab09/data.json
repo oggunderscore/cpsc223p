@@ -1,0 +1,42 @@
+[
+  {
+    "origin": "LAX",
+    "destination": "ORD",
+    "flight_number": "545",
+    "departure": "1230",
+    "next_day": "N",
+    "arrival": "1640"
+  },
+  {
+    "origin": "ORD",
+    "destination": "CLE",
+    "flight_number": "409",
+    "departure": "1733",
+    "next_day": "N",
+    "arrival": "1857"
+  },
+  {
+    "origin": "CLE",
+    "destination": "IAD",
+    "flight_number": "83",
+    "departure": "1953",
+    "next_day": "N",
+    "arrival": "2119"
+  },
+  {
+    "origin": "IAD",
+    "destination": "LHR",
+    "flight_number": "1",
+    "departure": "2200",
+    "next_day": "Y",
+    "arrival": "0530"
+  },
+  {
+    "origin": "LHR",
+    "destination": "LAX",
+    "flight_number": "2222",
+    "departure": "2355",
+    "next_day": "Y",
+    "arrival": "2201"
+  }
+]
