@@ -47,27 +47,14 @@ def read_test_cases(filename="input.txt"):
         i = 0
         while i < len(lines):
             N = int(lines[i].strip())
-            print(f"Got N: {N}")
             i += 1
             data = (
-                lines[i]
-                .strip()
-                .strip("]")
-                .replace("[", "")
-                .replace("], ", "|")
-                .split("|")
-            )  # replace("[", "").replace("]", "").split(",")
-            # for item in data:
-            #     item = item.split(", ")
-            #     for num in item:
-            #         num = int(num)
-            #     print(f"item: {item}")
+                lines[i].strip().strip("]").replace("[", "").split("], ")
+            )  # String manipulation shannanigans, dont even bother
             stocks_and_values = [list(map(int, item.split(", "))) for item in data]
 
-            print(f"Stocks&Values: {stocks_and_values}")
             i += 1
             amount = int(lines[i].strip())
-            print(f"Amount: {amount}")
             i += 2
             test_cases.append((N, stocks_and_values, amount))
     return test_cases
