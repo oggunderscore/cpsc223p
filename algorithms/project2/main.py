@@ -40,16 +40,45 @@ def stock_purchase_maximization(n, stocks_and_values, amount):
     return max_stocks(n, amount)
 
 
-# Sample input 1
-N1 = 4
-stocks_and_values1 = [[1, 2], [4, 3], [5, 6], [6, 7]]
-amount1 = 12
-output1 = stock_purchase_maximization(N1, stocks_and_values1, amount1)
-print("Sample Output 1:", output1)
+def read_test_cases(filename="input.txt"):
+    test_cases = []
+    with open(filename, "r") as file:
+        lines = file.readlines()
+        i = 0
+        while i < len(lines):
+            N = int(lines[i].strip())
+            print(f"Got N: {N}")
+            i += 1
+            data = (
+                lines[i]
+                .strip()
+                .strip("]")
+                .replace("[", "")
+                .replace("], ", "|")
+                .split("|")
+            )  # replace("[", "").replace("]", "").split(",")
+            # for item in data:
+            #     item = item.split(", ")
+            #     for num in item:
+            #         num = int(num)
+            #     print(f"item: {item}")
+            stocks_and_values = [list(map(int, item.split(", "))) for item in data]
 
-# Sample input 2
-N2 = 4
-stocks_and_values2 = [[3, 2], [4, 3], [5, 3], [6, 7]]
-amount2 = 10
-output2 = stock_purchase_maximization(N2, stocks_and_values2, amount2)
-print("Sample Output 2:", output2)
+            print(f"Stocks&Values: {stocks_and_values}")
+            i += 1
+            amount = int(lines[i].strip())
+            print(f"Amount: {amount}")
+            i += 2
+            test_cases.append((N, stocks_and_values, amount))
+    return test_cases
+
+
+def main():
+    test_cases = read_test_cases()
+    for i, (N, stocks_and_values, amount) in enumerate(test_cases, start=1):
+        output = stock_purchase_maximization(N, stocks_and_values, amount)
+        print(f"Test Case {i}: {output}")
+
+
+if __name__ == "__main__":
+    main()
