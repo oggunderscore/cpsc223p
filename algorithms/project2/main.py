@@ -41,30 +41,43 @@ def stock_purchase_maximization(n, stocks_and_values, amount):
 
 
 def read_test_cases(filename="input.txt"):
+    # Initialize empty
     test_cases = []
     with open(filename, "r") as file:
         lines = file.readlines()
         i = 0
         while i < len(lines):
-            N = int(lines[i].strip())
-            i += 1
+            n = int(lines[i].strip())
+            i += 1  # Next Parsed Line
             data = (
                 lines[i].strip().strip("]").replace("[", "").split("], ")
             )  # String manipulation shannanigans, dont even bother
             stocks_and_values = [list(map(int, item.split(", "))) for item in data]
-
-            i += 1
+            i += 1  # Next Parsed Line
             amount = int(lines[i].strip())
+
+            # Skip newLine
             i += 2
-            test_cases.append((N, stocks_and_values, amount))
+
+            # Finally add the data
+            test_cases.append((n, stocks_and_values, amount))
     return test_cases
 
 
 def main():
+    # Import from input.txt
     test_cases = read_test_cases()
+
+    # Open output.txt with w perms
+    output_file = open("output.txt", "w")
+
     for i, (N, stocks_and_values, amount) in enumerate(test_cases, start=1):
+        # Run calculation algorithm
         output = stock_purchase_maximization(N, stocks_and_values, amount)
         print(f"Test Case {i}: {output}")
+
+        # Write to the file
+        output_file.write(f"Test Case {i}: {output}\n")
 
 
 if __name__ == "__main__":
